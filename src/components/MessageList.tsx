@@ -4,9 +4,10 @@ import MessageBubble from './MessageBubble'
 
 type MessageListProps = {
   messages: Message[]
+  hasActiveConversation: boolean
 }
 
-export default function MessageList({ messages }: MessageListProps) {
+export default function MessageList({ messages, hasActiveConversation }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -16,7 +17,11 @@ export default function MessageList({ messages }: MessageListProps) {
   if (messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center overflow-y-auto p-4 pb-6">
-        <p className="text-center text-stone-600">Nenhuma mensagem ainda. Envie a primeira!</p>
+        <p className="text-center text-stone-600">
+          {hasActiveConversation
+            ? 'Nenhuma mensagem ainda. Envie a primeira!'
+            : 'Crie uma conversa ou selecione uma existente para começar.'}
+        </p>
       </div>
     )
   }
